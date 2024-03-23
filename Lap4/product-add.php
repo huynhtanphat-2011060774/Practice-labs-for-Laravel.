@@ -3,14 +3,14 @@ code does: */
     <?php
     require_once("entities/product.class.php");
     require_once('entities/category.class.php');
-//? Ghi chú lại các biến được khởi tạo và sử dụng để lưu thông tin lỗi.
+//? Make a note of the variables that are initialized and used to store error information.
     $loi_str = "";
    /* This part of the code snippet is checking if the form has been submitted by checking if the
    "btnsubmit" parameter is set in the `` superglobal array. If the form has been submitted,
    it proceeds to retrieve the values entered in the form fields for product name, category ID,
    price, quantity, description, and the uploaded picture file. */
     if (isset($_POST["btnsubmit"])) {
-        // !IMPORTANT: Lấy giá trị từ biểu mẫu và khởi tạo đối tượng sản phẩm mới
+        // !IMPORTANT: Get the value from the form and instantiate a new product object
         $productName = $_POST["txtname"];
         $cateID = $_POST["txtcateid"];
         $price = $_POST["txtprice"];
@@ -23,7 +23,7 @@ code does: */
     object creation is a crucial step in the process of adding a new product to the database. The
     `Product` class likely contains methods to handle the saving of product information to the
     database. */
-    // !IMPORTANT: Lưu sản phẩm vào cơ sở dữ liệut
+    // !IMPORTANT: Save products to database
         $newProduct = new Product(
             $productName,
             $cateID,
@@ -37,16 +37,16 @@ code does: */
    Here's a breakdown of what it does: */
         $loi = array();
 
-         // !IMPORTANT: Xử lý lỗi nếu không thể lưu sản phẩ
+         // !IMPORTANT: Handle error if product cannot be saved
         $result = $newProduct->save($loi);
 
         if (!$result) {
-          // !IMPORTANT: Chuyển hướng người dùng đến trang product-add.php với thông báo lỗi
+          // !IMPORTANT: Redirect users to product-add.php page with error message
             $loi_str = implode("<br>", $loi);
 
             header("Location: product-add.php?status=failure&error=" . urlencode($loi_str));
         } else {
-            // !IMPORTANT: Chuyển hướng người dùng đến trang product-add.php với thông báo sản phẩm đã được thêm thành công
+            // !IMPORTANT: Redirects the user to the product-add.php page with a notification that the product has been added successfully
             header("Location: product-add.php?status=inserted");
         }
     }
