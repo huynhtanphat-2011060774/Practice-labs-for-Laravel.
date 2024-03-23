@@ -1,3 +1,5 @@
+/* The Db class in PHP establishes a database connection, executes query statements, and returns
+results as arrays. */
 <?php
 class Db
 {
@@ -6,8 +8,16 @@ class Db
 
 
     //Connection initialization function
+   /**
+    * The function `connect` establishes a connection to a MySQL database and returns the connection
+    * object.
+    *
+    * @return The `connect()` function returns the connection to the database after establishing a
+    * connection using mysqli_connect().
+    */
     public function connect()
     {
+        // !IMPORTANT: Function connects to the database and returns the connection
         $connection = mysqli_connect(
             "localhost",
             "root",
@@ -35,8 +45,19 @@ class Db
     }
 
     //The implementation function returns an array of result lists
+    /**
+     * The function `select_to_array` queries data from the database and returns an array of results.
+     *
+     * @param queryString The `select_to_array` function you provided is used to execute a query and
+     * return the results as an array. The `queryString` parameter is the SQL query that you want to
+     * execute to fetch data from the database. This query should be a SELECT statement that retrieves
+     * data from one or more tables in
+     *
+     * @return An array of results from the database query is being returned.
+     */
     public function select_to_array($queryString)
     {
+        // !IMPORTANT: The function queries data from the database and returns an array of results
         $rows = array();
         $result = $this->query_execute($queryString);
         if ($result == false) return false;
